@@ -10,8 +10,8 @@ const log_keyboard = {
       resize_keyboard: true,
   }
 };
-/*
-const log_keyboard = {
+
+const menu_keyboard = {
   reply_markup: {
       keyboard: [
           ["Prova", "prova2"],
@@ -20,6 +20,6 @@ const log_keyboard = {
       one_time_keyboard: true,
       resize_keyboard: true,
   }
-};*/
+};
 
-module.exports= {log_keyboard}
+module.exports= {log_keyboard,menu_keyboard}
