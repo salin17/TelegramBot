@@ -20,10 +20,6 @@ bot.command(["Start", "start"], (ctx) => {
     bot.telegram.sendMessage(ctx.chat.id, "Benvenuto nel bot!!! @" + ctx.from.username, log_keyboard);
 })
 
-bot.hears(["Api", "api"], (ctx) => {
-    Api.Cerca(ctx);
-})
-
 bot.hears(emoji.get('airplane_departure') + "Accedi" + emoji.get('airplane_departure'), (ctx) => {
     ctx.reply("Inserire nome utente:");
     user_info[0] = 1.0;
@@ -39,16 +35,26 @@ bot.hears(emoji.get('satellite') + "Continua senza accedere" + emoji.get('satell
     bot.telegram.sendMessage(ctx.chat.id, "ok", menu_keyboard);
 })
 
+bot.hears(emoji.get('mag_right') + "Cerca Voli" + emoji.get('mag_right'), (ctx) => {
+    if (user_info[0] == 3) {
+        Api.CercaVoli(ctx);
+    }
+})
+
+bot.hears("prova2", (ctx) => {
+    if (user_info[0] == 3) {
+        Api.Cerca(ctx);
+    }
+})
 
 bot.on("text", async (ctx) => {
     user_info = await Utils.Navigazione(ctx, user_info);
-    if (user_info[0] == 3)
-    {
+    if (user_info[0] == 3) {
         console.log(user_info[0]);
         console.log(user_info[1]);
         console.log(user_info[2]);
     }
-        
+
 
 })
 

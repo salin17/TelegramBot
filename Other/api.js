@@ -6,7 +6,7 @@ var unirest = require("unirest");
 
 bot.use(session());
 
-module.exports.Cerca = function (ctx) {
+function Cerca(ctx) {
     unirest
         .get("https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/autosuggest/v1.0/IT/EUR/it-IT/")
         .headers({ "x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com", "x-rapidapi-key": "a32373c704mshbe769e83869fa5ep1e5c46jsn4857f4c37cea" })
@@ -19,7 +19,24 @@ module.exports.Cerca = function (ctx) {
                 response.body.Places[0].CountryName + "\r\n"
             );
 
-            console.log(response.body);                             
+            console.log(response.body);
         })
 
 }
+
+function CercaVoli(ctx) {
+    unirest
+        .get("https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browseroutes/v1.0/IT/EUR/it-IT/MILA-sky/LOND-sky/2020-06-01")
+        .headers({ "x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com", "x-rapidapi-key": "a32373c704mshbe769e83869fa5ep1e5c46jsn4857f4c37cea" })
+        .query({ "inboundpartialdate": "2020-05-01" })
+        .then((response) => {
+            bot.telegram.sendMessage(ctx.chat.id, "OK");
+
+            //console.log(response.body.Quotes[0]);
+            console.log("//////////////////////////////////////////////");
+            console.log(response.body);
+        })
+
+}
+
+module.exports = { Cerca: Cerca, CercaVoli: CercaVoli }

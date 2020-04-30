@@ -14,8 +14,8 @@ const log_keyboard = {
 const menu_keyboard = {
   reply_markup: {
     keyboard: [
-      ["Prova", "prova2"],
-      ["prova3"]
+      [emoji.get('mag_right') + "Cerca Voli" + emoji.get('mag_right'), "prova2"],
+      [emoji.get('gear') + "Impostazioni Utente" + emoji.get('gear')]
     ],
     one_time_keyboard: true,
     resize_keyboard: true,

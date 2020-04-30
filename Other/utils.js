@@ -4,7 +4,7 @@ const session = require('telegraf/session');
 
 const Mongo = require('./mongo');
 const Keyboard = require('./keyboard');
-const Api = require('./api');
+//const Api = require('./api');
 
 let nome, psw;
 const log_keyboard = Keyboard.log_keyboard;
@@ -54,7 +54,7 @@ async function Navigazione(ctx, info) {
       info[0] = 3;
       info[1] = nome;
       info[2] = psw;
-      break; 
+      break;
 
     case 3:
       bot.telegram.sendMessage(ctx.chat.id, "BLABLABLA", log_keyboard);
