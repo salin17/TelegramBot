@@ -8,55 +8,48 @@ const Utils = require('./Other/utils');
 const Mongo = require('./Other/mongo');
 const Keyboard = require('./Other/keyboard');
 
-
-var pos = 0.0;
-/*
-const log_keyboard = {
-    reply_markup: {
-        keyboard: [
-            [emoji.get('airplane_departure') + "Accedi" + emoji.get('airplane_departure'), emoji.get('small_airplane') + "Registrati" + emoji.get('small_airplane')],
-            [emoji.get('satellite') + "Accedi" + emoji.get('satellite')]
-        ],
-        one_time_keyboard: true,
-        resize_keyboard: true,
-    }
-};*/
+var user_info = [0.0, null, null];
 
 const log_keyboard = Keyboard.log_keyboard;
+const menu_keyboard = Keyboard.menu_keyboard;
+
 
 bot.use(session());
 
-bot.command(["Start","start"],(ctx) => {
-    bot.telegram.sendMessage(ctx.chat.id,"Benvenuto nel bot!!! @" + ctx.from.username, log_keyboard);
+bot.command(["Start", "start"], (ctx) => {
+    bot.telegram.sendMessage(ctx.chat.id, "Benvenuto nel bot!!! @" + ctx.from.username, log_keyboard);
 })
 
-bot.hears(["Api","api"],(ctx) => {
+bot.hears(["Api", "api"], (ctx) => {
     Api.Cerca(ctx);
 })
-/*
-bot.hears("Mongo",async(ctx) => {
-    await Mongo.Setup();
-    //await Mongo.SetUser("nome","pass");
-    var boh = await Mongo.Nome("prova");
-    //console.log(await Mongo.Nome("prova").username); NOPE
-    console.log(boh.username);
-})*/
 
-bot.hears(emoji.get('airplane_departure') + "Accedi" + emoji.get('airplane_departure'),(ctx) => {
+bot.hears(emoji.get('airplane_departure') + "Accedi" + emoji.get('airplane_departure'), (ctx) => {
     ctx.reply("Inserire nome utente:");
-    pos = 1.0;
+    user_info[0] = 1.0;
 })
 
-bot.hears(emoji.get('small_airplane') + "Registrati" + emoji.get('small_airplane'),(ctx) => {
+bot.hears(emoji.get('small_airplane') + "Registrati" + emoji.get('small_airplane'), (ctx) => {
     ctx.reply("Inserire nome utente:");
-    pos = 2.0;
+    user_info[0] = 2.0;
+})
+
+bot.hears(emoji.get('satellite') + "Continua senza accedere" + emoji.get('satellite'), (ctx) => {
+    user_info[0] = 3.0;
+    bot.telegram.sendMessage(ctx.chat.id, "ok", menu_keyboard);
 })
 
 
 bot.on("text", async (ctx) => {
-   pos = await Utils.Navigazione(ctx,pos)
+    user_info = await Utils.Navigazione(ctx, user_info);
+    if (user_info[0] == 3)
+    {
+        console.log(user_info[0]);
+        console.log(user_info[1]);
+        console.log(user_info[2]);
+    }
+        
+
 })
-
-
 
 bot.launch();

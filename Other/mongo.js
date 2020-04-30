@@ -1,16 +1,15 @@
 var mongoose = require('mongoose');
-//var fs = require('fs');
 
 function Setup() {
-    var connStr = 'mongodb+srv://RWuser:QHXn2AFWwCdMiQ23@clustermio-5ftwd.mongodb.net/Bot_DB?retryWrites=true&w=majority';
-    mongoose.connect(connStr, {
-        useUnifiedTopology: true,
-        useNewUrlParser: true,
-        useCreateIndex: true,
-        useFindAndModify: false
-    });
-    var db = mongoose.connection
-    db.on('error', console.error.bind(console, 'connection error:'))
+  var connStr = 'mongodb+srv://RWuser:QHXn2AFWwCdMiQ23@clustermio-5ftwd.mongodb.net/Bot_DB?retryWrites=true&w=majority';
+  mongoose.connect(connStr, {
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useFindAndModify: false
+  });
+  var db = mongoose.connection
+  db.on('error', console.error.bind(console, 'connection error:'))
 }
 
 var userSchema = new mongoose.Schema({
@@ -43,7 +42,7 @@ async function Nome(nome) {
   return user
 }
 
-async function AddUser(nome,psw) {
+async function AddUser(nome, psw) {
   var NewUser = new userModel({
     username: nome,
     password: psw
@@ -53,9 +52,9 @@ async function AddUser(nome,psw) {
 
 
 
-module.exports= {
-  Setup:Setup,
-  userModel:userModel,
-  Nome:Nome,
-  AddUser:AddUser
+module.exports = {
+  Setup: Setup,
+  userModel: userModel,
+  Nome: Nome,
+  AddUser: AddUser
 }
